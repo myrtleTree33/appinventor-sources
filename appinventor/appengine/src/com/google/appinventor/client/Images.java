@@ -11,10 +11,9 @@ import com.google.gwt.user.client.ui.Tree.Resources;
 
 /**
  * Image bundle containing all client images.
- *
+ * <p/>
  * Note: Images extends Tree.Resources rather than ClientBundle so that
  * the Images can be used with the com.google.gwt.user.client.ui.Tree class.
- *
  */
 public interface Images extends Resources {
 
@@ -80,11 +79,11 @@ public interface Images extends Resources {
   @Source("com/google/appinventor/images/nearfield.png")
   ImageResource nearfield();
 
-   /**
-    * Designer palette item: accelerometersensor component
-    */
-   @Source("com/google/appinventor/images/accelerometersensor.png")
-   ImageResource accelerometersensor();
+  /**
+   * Designer palette item: accelerometersensor component
+   */
+  @Source("com/google/appinventor/images/accelerometersensor.png")
+  ImageResource accelerometersensor();
 
   /**
    * Designer palette item: barcode scanner component
@@ -474,14 +473,14 @@ public interface Images extends Resources {
   ImageResource sharingComponent();
 
   /**
-    * Designer palette item: Spinner
-    */
+   * Designer palette item: Spinner
+   */
   @Source("com/google/appinventor/images/spinner.png")
   ImageResource spinner();
 
   /**
-    * Designer palette item: YandexTranslate
-    */
+   * Designer palette item: YandexTranslate
+   */
   @Source("com/google/appinventor/images/yandex.png")
   ImageResource yandex();
 
@@ -490,5 +489,12 @@ public interface Images extends Resources {
    */
   @Source("com/google/appinventor/images/proximitysensor.png")
   ImageResource proximitysensor();
+
+
+  /**
+   * Designer palette item: Phaser component 
+   */
+  @Source("com/google/appinventor/images/proximitysensor.png")
+  ImageResource simplePhasor();
 
 }
