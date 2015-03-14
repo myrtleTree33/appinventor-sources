@@ -99,7 +99,8 @@ public class SimplePhaser extends AndroidViewComponent {
 //  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
 //          defaultValue = "")
   @SimpleProperty
-  public void LoadWebpage() {
+  public void LoadWebpage(String doNothing) {
+    //Do nothing with doNothing :)
     loadPage();
   }
 
