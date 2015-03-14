@@ -241,7 +241,7 @@ public class TranslationComponentProperty {
     map.put("ItemBackgroundColor", MESSAGES.ItemBackgroundColorProperties());
 
     // =========== Simple Phaser
-    map.put("SimplePhaserTitle", MESSAGES.simplePhaserComponentPalette());
+    map.put("LoadWebpage", MESSAGES.SimplePhaserLoadWebpageProperties());
 
 
     return map;

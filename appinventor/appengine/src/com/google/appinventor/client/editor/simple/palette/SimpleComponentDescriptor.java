@@ -313,8 +313,6 @@ public final class SimpleComponentDescriptor {
       return new MockSimplePhaser(editor);
     } else if (name.equals(MockSpinner.TYPE)) {
       return new MockSpinner(editor);
-    } else if (name.equals(MockSimplePhaser.TYPE)) {
-      return new MockSimplePhaser(editor);
     } else {
       // TODO(user): add 3rd party mock component proxy here
       throw new UnsupportedOperationException("unknown component: " + name);

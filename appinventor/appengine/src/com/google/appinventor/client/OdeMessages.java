@@ -5287,4 +5287,7 @@ public interface OdeMessages extends Messages {
   @Description("")
   String simplePhaserComponentPalette();
 
+  @DefaultMessage("LoadWebpage")
+  @Description("")
+  String SimplePhaserLoadWebpageProperties();
 }
