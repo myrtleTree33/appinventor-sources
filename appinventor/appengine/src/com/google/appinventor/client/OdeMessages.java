@@ -5281,13 +5281,4 @@ public interface OdeMessages extends Messages {
   @Description("")
   String FusionTablesStandardErrorMessage();
 
-
-  // ============== for simple phaser
-  @DefaultMessage("SimplePhaser")
-  @Description("")
-  String simplePhaserComponentPalette();
-
-  @DefaultMessage("LoadWebpage")
-  @Description("")
-  String SimplePhaserLoadWebpageProperties();
 }
