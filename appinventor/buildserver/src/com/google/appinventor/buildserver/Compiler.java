@@ -348,7 +348,6 @@ public final class Compiler {
           out.write("  <uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />\n");
           out.write("  <uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"false\" />\n");
           out.write("  <uses-feature android:name=\"android.hardware.wifi\" />\n"); // We actually require wifi
-          out.write("  <uses-feature android:name=\"android.permission.INTERNET\" />\n"); // We actually require internet
       }
 
       for (String permission : permissionsNeeded) {
