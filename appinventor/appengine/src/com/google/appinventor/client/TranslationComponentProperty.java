@@ -240,6 +240,10 @@ public class TranslationComponentProperty {
     map.put("ItemTextColor", MESSAGES.ItemTextColorProperties());
     map.put("ItemBackgroundColor", MESSAGES.ItemBackgroundColorProperties());
 
+    // =========== Simple Phaser
+    map.put("LoadWebpage", MESSAGES.SimplePhaserLoadWebpageProperties());
+
+
     return map;
   }
 }
