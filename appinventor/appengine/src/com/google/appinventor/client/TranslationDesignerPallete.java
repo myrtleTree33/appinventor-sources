@@ -308,6 +308,9 @@ public class TranslationDesignerPallete {
       value = MESSAGES.WebViewerHelpStringComponentPallette();
     } else if (key.equals("YandexTranslate-helpString")) {
       value = MESSAGES.YandexTranslateHelpStringComponentPallette();
+
+    } else if (key.equals("SimplePhaser")) {
+      value = MESSAGES.simplePhaserComponentPalette();
     }
     return value;
   }
