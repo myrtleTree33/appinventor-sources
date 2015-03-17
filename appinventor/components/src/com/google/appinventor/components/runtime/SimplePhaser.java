@@ -9,6 +9,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.JavascriptInterface;
+import android.widget.Toast;
 import com.google.appinventor.components.annotations.*;
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.common.PropertyTypeConstants;
@@ -27,7 +28,6 @@ import com.google.appinventor.components.runtime.util.SdkLevel;
 public class SimplePhaser extends AndroidViewComponent {
 
   private final WebView webview;
-  private Form form;
 
   WebViewInterface wvInterface;
 
@@ -39,7 +39,7 @@ public class SimplePhaser extends AndroidViewComponent {
   public class WebViewInterface {
     Form webViewForm;
     Context mContext;
-    String  webViewString;
+    String webViewString;
 
     /**
      * Instantiate the interface and set the context
@@ -47,6 +47,11 @@ public class SimplePhaser extends AndroidViewComponent {
     WebViewInterface(Context c) {
       mContext = c;
       webViewString = " ";
+    }
+
+    @JavascriptInterface
+    public void setGameLoadedFlag() {
+      EventGameReady();
     }
   }
 
@@ -59,14 +64,13 @@ public class SimplePhaser extends AndroidViewComponent {
   public SimplePhaser(ComponentContainer container) {
     super(container);
 
-    this.form = container.$form();
     webview = new WebView(container.$context());
     resetWebViewClient();       // Set up the web view client
     webview.getSettings().setJavaScriptEnabled(true);
     webview.setFocusable(true);
 // adds a way to send strings to the javascript
     wvInterface = new WebViewInterface(webview.getContext());
-    webview.addJavascriptInterface(wvInterface, "AppInventorMap");
+    webview.addJavascriptInterface(wvInterface, "Android");
 //We had some issues with rendering of maps on certain devices; using caching seems to solve it
     webview.setDrawingCacheEnabled(false);
     webview.setDrawingCacheEnabled(true);
@@ -127,7 +131,7 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
-//  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
+  //  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
 //          defaultValue = "")
   @SimpleProperty
   public void GetSomeProperty(String doNothing) {
@@ -138,15 +142,15 @@ public class SimplePhaser extends AndroidViewComponent {
   @SimpleFunction(
           description = "Loads the Google page."
   )
-  public void LoadWebpage(String doNothing) {
+  public void LoadWebpage() {
     loadPage();
   }
 
 
   public void loadPage() {
-    String markup = "<HTML>hello world!! Hihi there!!</HTML>";
+//    String markup = "<HTML>hello world!! Hihi there!!</HTML>";
 //    webview.loadDataWithBaseURL(null, markup, "text/html", "utf-8", null);
-    webview.loadUrl("http://joeltong.org/phaser/phaser.html");
+    webview.loadUrl("http://joeltong.org/phaser/");
   }
 
   @Override
@@ -172,6 +176,52 @@ public class SimplePhaser extends AndroidViewComponent {
       height = LENGTH_FILL_PARENT;
     }
     super.Height(height);
+  }
+
+  /*************************************************************/
+  /*************** JAVASCRIPT ENDPOINTS ************************/
+  /**
+   * *********************************************************
+   */
+
+  @SimpleEvent
+  public void EventGameReady() {
+//    Toast.makeText(webview.getContext(), "Dispatched event!!", Toast.LENGTH_SHORT).show();
+    EventDispatcher.dispatchEvent(this, "EventGameReady");
+  }
+
+  @SimpleFunction(
+          description = "Creates a background of the sky."
+  )
+  public void CreateSky() {
+    webview.loadUrl("javascript:api.CreateSky()");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a simple platform."
+  )
+  public void CreatePlatform(int x, int y) {
+    webview.loadUrl("javascript:api.CreatePlatform(" + x + "," + y + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a rock object."
+  )
+  public void CreateRock(int x, int y, int gravity) {
+    webview.loadUrl("javascript:api.CreateRock(" +
+            x + "," +
+            y + "," +
+            gravity + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Generates the game."
+  )
+  public void GenerateGame() {
+    webview.loadUrl("javascript:api.GenerateGame()");
   }
 
 }
