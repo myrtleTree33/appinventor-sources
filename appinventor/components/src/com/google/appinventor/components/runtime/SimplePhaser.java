@@ -1,5 +1,6 @@
 package com.google.appinventor.components.runtime;
 
+
 import android.content.Context;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -37,7 +38,6 @@ public class SimplePhaser extends AndroidViewComponent {
    * in the WebView
    */
   public class WebViewInterface {
-    Form webViewForm;
     Context mContext;
     String webViewString;
 
@@ -52,6 +52,11 @@ public class SimplePhaser extends AndroidViewComponent {
     @JavascriptInterface
     public void setGameLoadedFlag() {
       EventGameReady();
+    }
+
+    @JavascriptInterface
+    public void onCollision(String aName, String aGroup, String bName, String bGroup) {
+      EventSpriteCollide(aName, aGroup, bName, bGroup);
     }
   }
 
@@ -98,6 +103,7 @@ public class SimplePhaser extends AndroidViewComponent {
         }
         return false;
       }
+
     });
 
 // set the initial default properties. Height and Width
@@ -105,6 +111,8 @@ public class SimplePhaser extends AndroidViewComponent {
     Width(LENGTH_FILL_PARENT);
     Height(LENGTH_FILL_PARENT);
 
+    // load the webpage automatically
+    loadPage();
   }
 
   // Create a class so we can override the default link following behavior.
@@ -139,13 +147,13 @@ public class SimplePhaser extends AndroidViewComponent {
 //    loadPage();
   }
 
-  @SimpleFunction(
-          description = "Loads the Google page."
-  )
-  public void LoadWebpage() {
-    loadPage();
-  }
-
+//  @SimpleFunction(
+//          description = "Loads the Google page."
+//  )
+//  public void LoadWebpage() {
+////    loadPage();
+//  }
+//
 
   public void loadPage() {
 //    String markup = "<HTML>hello world!! Hihi there!!</HTML>";
@@ -184,11 +192,30 @@ public class SimplePhaser extends AndroidViewComponent {
    * *********************************************************
    */
 
+  private String dumpStr(String str) {
+    return "\'" + str + "\'";
+  }
+
   @SimpleEvent
   public void EventGameReady() {
-//    Toast.makeText(webview.getContext(), "Dispatched event!!", Toast.LENGTH_SHORT).show();
+    Toast.makeText(webview.getContext(), "Dispatched event!!", Toast.LENGTH_SHORT).show();
     EventDispatcher.dispatchEvent(this, "EventGameReady");
   }
+
+  @SimpleEvent
+  public void EventSpriteCollide(String aName, String aGroup,
+                                 String bName, String bGroup) {
+    Toast.makeText(webview.getContext(), "collision!", Toast.LENGTH_SHORT).show();
+    EventDispatcher.dispatchEvent(this, "EventSpriteCollide",
+            aName, aGroup, bName, bGroup);
+  }
+
+
+  /**********************************************/
+  /*************** Instantiators ****************/
+  /**
+   * ******************************************
+   */
 
   @SimpleFunction(
           description = "Creates a background of the sky."
@@ -201,19 +228,66 @@ public class SimplePhaser extends AndroidViewComponent {
   @SimpleFunction(
           description = "Creates a simple platform."
   )
-  public void CreatePlatform(int x, int y) {
-    webview.loadUrl("javascript:api.CreatePlatform(" + x + "," + y + ")");
+  public void CreatePlatform(String group, int x, int y) {
+    webview.loadUrl("javascript:api.CreatePlatform(" + dumpStr(group) + "," + x + "," + y + ")");
   }
 
 
   @SimpleFunction(
           description = "Creates a rock object."
   )
-  public void CreateRock(int x, int y, int gravity) {
+  public void CreateRock(String group, int x, int y, int gravity) {
     webview.loadUrl("javascript:api.CreateRock(" +
+            dumpStr(group) + "," +
             x + "," +
             y + "," +
             gravity + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a tree object."
+  )
+  public void CreateTree(String group, int x, int y, int gravity) {
+    webview.loadUrl("javascript:api.CreateTree(" +
+            dumpStr(group) + "," +
+            x + "," +
+            y + "," +
+            gravity + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a new flying bullet that destroys on impact."
+  )
+  public void CreateBullet(int x, int y, int gravity,
+                           int xVel, int yVel) {
+    webview.loadUrl("javascript:api.CreateBullet(" +
+            x + "," +
+            y + "," +
+            gravity + "," +
+            xVel + "," +
+            yVel + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Deletes a sprite object."
+  )
+  public void DeleteSprite(String name) {
+    webview.loadUrl("javascript:api.CreateTree(" +
+            dumpStr(name) + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Sets position of a sprite object."
+  )
+  public void SetPosition(String name, int x, int y) {
+    webview.loadUrl("javascript:api.SetPosition(" +
+            dumpStr(name) + "," +
+            x + "," +
+            y + ")");
   }
 
 
