@@ -18,6 +18,10 @@ import com.google.appinventor.components.common.YaVersion;
 import com.google.appinventor.components.runtime.util.FroyoUtil;
 import com.google.appinventor.components.runtime.util.SdkLevel;
 
+import java.util.AbstractMap;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * Created by joel on 3/12/15.
  */
@@ -30,10 +34,13 @@ public class SimplePhaser extends AndroidViewComponent {
 
   private final WebView webview;
 
+  private AbstractMap<String, String> keyStore;
+
   WebViewInterface wvInterface;
 
 
   /**
+   *
    * Allows the setting of properties to be monitored from the javascript
    * in the WebView
    */
@@ -58,6 +65,11 @@ public class SimplePhaser extends AndroidViewComponent {
     public void onCollision(String aName, String aGroup, String bName, String bGroup) {
       EventSpriteCollide(aName, aGroup, bName, bGroup);
     }
+
+    @JavascriptInterface
+    public void sendMessage(String uuid, String payload) {
+      keyStore.put(uuid, payload);
+    }
   }
 
 
@@ -68,6 +80,8 @@ public class SimplePhaser extends AndroidViewComponent {
    */
   public SimplePhaser(ComponentContainer container) {
     super(container);
+
+    keyStore = new ConcurrentHashMap<String, String>();
 
     webview = new WebView(container.$context());
     resetWebViewClient();       // Set up the web view client
@@ -139,12 +153,41 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
-  //  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_STRING,
-//          defaultValue = "")
+  private String makeUuid() {
+    return UUID.randomUUID().toString();
+  }
+
+
+  private String getMessage(String uuid) {
+    Toast.makeText(webview.getContext(), "Mailbox: " + keyStore.size(), Toast.LENGTH_SHORT).show();
+    while (!keyStore.containsKey(uuid)) {
+      // empty pend
+    }
+    Toast.makeText(webview.getContext(), "GOT WIDTH DATA", Toast.LENGTH_SHORT).show();
+    return keyStore.remove(uuid);
+  }
+
+
+  /**
+   *
+   * To add a property,remember to add to TranslationComponentProperty and OdeMessages classes.
+   * for it to be visible.
+   *
+   */
+
   @SimpleProperty
-  public void GetSomeProperty(String doNothing) {
-    //Do nothing with doNothing :)
-//    loadPage();
+  public int GameWidth() {
+    String uuid = makeUuid();
+    webview.loadUrl("javascript:api.GetGameWidth(" + dumpStr(uuid) + ");");
+    int width = Integer.parseInt(getMessage(uuid));
+    return width;
+  }
+
+
+  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INTEGER, defaultValue = "")
+  @SimpleProperty
+  public void GameWidth(int width) {
+    // do some setting info here
   }
 
 //  @SimpleFunction(

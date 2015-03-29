@@ -5290,4 +5290,8 @@ public interface OdeMessages extends Messages {
   @DefaultMessage("LoadWebpage")
   @Description("")
   String SimplePhaserLoadWebpageProperties();
+
+  @DefaultMessage("GameWidth")
+  @Description("")
+  String SimplePhaserGameWidthProperties();
 }

@@ -242,6 +242,7 @@ public class TranslationComponentProperty {
 
     // =========== Simple Phaser
     map.put("LoadWebpage", MESSAGES.SimplePhaserLoadWebpageProperties());
+    map.put("GameWidth", MESSAGES.SimplePhaserGameWidthProperties());
 
 
     return map;
