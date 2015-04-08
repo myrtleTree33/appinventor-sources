@@ -17,6 +17,9 @@ import com.google.appinventor.components.common.PropertyTypeConstants;
 import com.google.appinventor.components.common.YaVersion;
 import com.google.appinventor.components.runtime.util.FroyoUtil;
 import com.google.appinventor.components.runtime.util.SdkLevel;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,6 +40,8 @@ public class SimplePhaser extends AndroidViewComponent {
   private final WebView webview;
 
   private Map<String, String> keyStore;
+
+  private Map<String, SpriteState> statesDb;  // accumulator to store an array of sprite states
 
   WebViewInterface wvInterface;
 
@@ -73,6 +78,30 @@ public class SimplePhaser extends AndroidViewComponent {
       Toast.makeText(webview.getContext(), "MSG PLACED==" + payload + " uuid=" + uuid, Toast.LENGTH_SHORT).show();
       keyStore.put(uuid, payload);
     }
+
+    @JavascriptInterface
+    public void makeSpriteStates(String payload) {
+      JSONArray jsonArr;
+      try {
+        jsonArr = new JSONArray(payload);
+        double x,y,velX,velY;
+        String name;
+
+        statesDb.clear();  // only clear after JSON is successfully parsed
+
+        for (int i = 0; i < jsonArr.length(); i++) {
+          JSONObject json = jsonArr.getJSONObject(i);
+          name = json.getString("name");
+          x = json.getDouble("x");
+          y = json.getDouble("y");
+          velX = json.getDouble("velX");
+          velY = json.getDouble("velY");
+          statesDb.put(name, new SpriteState(x,y,velX,velY));
+        }
+
+      } catch (JSONException e) {
+      }
+    }
   }
 
 
@@ -83,6 +112,9 @@ public class SimplePhaser extends AndroidViewComponent {
    */
   public SimplePhaser(ComponentContainer container) {
     super(container);
+
+    // sprite states
+    statesDb = new ConcurrentHashMap<String, SpriteState>();
 
 //    keyStore = new ConcurrentHashMap<String, String>();
     keyStore = Collections.synchronizedMap(new HashMap<String, String>());
@@ -248,6 +280,23 @@ public class SimplePhaser extends AndroidViewComponent {
    * *********************************************************
    */
 
+  /**
+   * Simple class that stores an array of states
+   */
+  public class SpriteState {
+    public double x;
+    public double y;
+    public double velX;
+    public double velY;
+
+    public SpriteState(double x, double y, double velX, double velY) {
+      this.x = x;
+      this.y = y;
+      this.velX = velX;
+      this.velY = velY;
+    }
+  }
+
   private String dumpStr(String str) {
     return "\'" + str + "\'";
   }
@@ -349,14 +398,20 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
+  private SpriteState getSpriteState(String name) {
+    return (SpriteState) statesDb.get(name);
+  }
+
+
   @SimpleFunction(
           description = "Gets the X coordinate of a sprite object."
   )
-  public int GetSpriteX(String name) {
-    String uuid = makeUuid();
-    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
-    int x = Integer.parseInt(getMessage(uuid));
-    return x;
+  public double GetSpriteX(String name) {
+    SpriteState state = getSpriteState(name);
+    if (state == null) {
+      return 0; // invalid
+    }
+    return state.x;
   }
 
 
@@ -381,17 +436,17 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
-  @SimpleFunction(
-          description = "Gets the X coordinate of a sprite object."
-  )
-  public int GetSpriteX3(String name) {
-    String uuid = makeUuid();
-    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
-    pause(400);
-    getMessage(uuid);
-//    return x;
-    return 20;
-  }
+//  @SimpleFunction(
+//          description = "Gets the X coordinate of a sprite object."
+//  )
+//  public int GetSpriteX3(String name) {
+//    String uuid = makeUuid();
+//    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
+//    pause(400);
+//    getMessage(uuid);
+////    return x;
+//    return 20;
+//  }
 
 
   private void pause(long ms) {
