@@ -18,9 +18,11 @@ import com.google.appinventor.components.common.YaVersion;
 import com.google.appinventor.components.runtime.util.FroyoUtil;
 import com.google.appinventor.components.runtime.util.SdkLevel;
 
-import java.util.AbstractMap;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+//import java.util.Collections;
+//import java.util.HashMap;
+//import java.util.Map;
 
 /**
  * Created by joel on 3/12/15.
@@ -34,7 +36,7 @@ public class SimplePhaser extends AndroidViewComponent {
 
   private final WebView webview;
 
-  private AbstractMap<String, String> keyStore;
+  private Map<String, String> keyStore;
 
   WebViewInterface wvInterface;
 
@@ -68,6 +70,7 @@ public class SimplePhaser extends AndroidViewComponent {
 
     @JavascriptInterface
     public void sendMessage(String uuid, String payload) {
+      Toast.makeText(webview.getContext(), "MSG PLACED==" + payload + " uuid=" + uuid, Toast.LENGTH_SHORT).show();
       keyStore.put(uuid, payload);
     }
   }
@@ -81,7 +84,8 @@ public class SimplePhaser extends AndroidViewComponent {
   public SimplePhaser(ComponentContainer container) {
     super(container);
 
-    keyStore = new ConcurrentHashMap<String, String>();
+//    keyStore = new ConcurrentHashMap<String, String>();
+    keyStore = Collections.synchronizedMap(new HashMap<String, String>());
 
     webview = new WebView(container.$context());
     resetWebViewClient();       // Set up the web view client
@@ -187,16 +191,25 @@ public class SimplePhaser extends AndroidViewComponent {
   @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INTEGER, defaultValue = "")
   @SimpleProperty
   public void GameWidth(int width) {
-    // do some setting info here
+    // not used
   }
 
-//  @SimpleFunction(
-//          description = "Loads the Google page."
-//  )
-//  public void LoadWebpage() {
-////    loadPage();
-//  }
-//
+
+  @SimpleProperty
+  public int GameHeight() {
+    String uuid = makeUuid();
+    webview.loadUrl("javascript:api.GetGameHeight(" + dumpStr(uuid) + ");");
+    int height = Integer.parseInt(getMessage(uuid));
+    return height;
+  }
+
+
+  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INTEGER, defaultValue = "")
+  @SimpleProperty
+  public void GameHeight(int height) {
+    // not used
+  }
+
 
   public void loadPage() {
 //    String markup = "<HTML>hello world!! Hihi there!!</HTML>";
@@ -279,9 +292,10 @@ public class SimplePhaser extends AndroidViewComponent {
   @SimpleFunction(
           description = "Creates a rock object."
   )
-  public void CreateRock(String group, int x, int y, int gravity) {
+  public void CreateRock(String group, String name, int x, int y, int gravity) {
     webview.loadUrl("javascript:api.CreateRock(" +
             dumpStr(group) + "," +
+            dumpStr(name) + "," +
             x + "," +
             y + "," +
             gravity + ")");
@@ -291,9 +305,10 @@ public class SimplePhaser extends AndroidViewComponent {
   @SimpleFunction(
           description = "Creates a tree object."
   )
-  public void CreateTree(String group, int x, int y, int gravity) {
+  public void CreateTree(String group, String name, int x, int y, int gravity) {
     webview.loadUrl("javascript:api.CreateTree(" +
             dumpStr(group) + "," +
+            dumpStr(name) + "," +
             x + "," +
             y + "," +
             gravity + ")");
@@ -318,7 +333,7 @@ public class SimplePhaser extends AndroidViewComponent {
           description = "Deletes a sprite object."
   )
   public void DeleteSprite(String name) {
-    webview.loadUrl("javascript:api.CreateTree(" +
+    webview.loadUrl("javascript:api.DeleteSprite(" +
             dumpStr(name) + ")");
   }
 
@@ -332,6 +347,89 @@ public class SimplePhaser extends AndroidViewComponent {
             x + "," +
             y + ")");
   }
+
+
+  @SimpleFunction(
+          description = "Gets the X coordinate of a sprite object."
+  )
+  public int GetSpriteX(String name) {
+    String uuid = makeUuid();
+    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
+    int x = Integer.parseInt(getMessage(uuid));
+    return x;
+  }
+
+
+  @SimpleFunction(
+          description = "Gets the X coordinate of a sprite object."
+  )
+  public int GetSpriteX2(String name) {
+    String uuid = makeUuid();
+//    int x = Integer.parseInt(getMessage(uuid));
+//    return x;
+    String theString = "javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");";
+    Toast.makeText(webview.getContext(), "Output:" + theString, Toast.LENGTH_SHORT).show();
+    webview.loadUrl(theString);
+    pause(100);
+    pause(100);
+    pause(100);
+    pause(100);
+    pause(100);
+    Toast.makeText(webview.getContext(), "Mailbox!!: " + keyStore.size(), Toast.LENGTH_SHORT).show();
+//    return (int) Integer.parseInt(getMessage(uuid));
+    return 20;
+  }
+
+
+  @SimpleFunction(
+          description = "Gets the X coordinate of a sprite object."
+  )
+  public int GetSpriteX3(String name) {
+    String uuid = makeUuid();
+    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
+    pause(400);
+    getMessage(uuid);
+//    return x;
+    return 20;
+  }
+
+
+  private void pause(long ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  @SimpleFunction(
+          description = "Sets the X coordinate of a sprite object."
+  )
+  public void SetSpriteX(String name, int x) {
+    webview.loadUrl("javascript:api.SetSpriteX(" + dumpStr(name) + "," + x + ");");
+  }
+
+
+  @SimpleFunction(
+          description = "Gets the Y coordinate of a sprite object."
+  )
+  public int GetSpriteY(String name) {
+    String uuid = makeUuid();
+    webview.loadUrl("javascript:api.GetSpriteY(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
+//    int y = Integer.parseInt(getMessage(uuid));
+//    return y;
+    return 0;
+  }
+
+
+  @SimpleFunction(
+          description = "Sets the Y coordinate of a sprite object."
+  )
+  public void SetSpriteY(String name, int y) {
+    webview.loadUrl("javascript:api.SetSpriteY(" + dumpStr(name) + "," + y + ");");
+  }
+
 
 
   @SimpleFunction(
