@@ -75,7 +75,7 @@ public class SimplePhaser extends AndroidViewComponent {
 
     @JavascriptInterface
     public void sendMessage(String uuid, String payload) {
-      Toast.makeText(webview.getContext(), "MSG PLACED==" + payload + " uuid=" + uuid, Toast.LENGTH_SHORT).show();
+//      Toast.makeText(webview.getContext(), "MSG PLACED==" + payload + " uuid=" + uuid, Toast.LENGTH_SHORT).show();
       keyStore.put(uuid, payload);
     }
 
@@ -195,11 +195,11 @@ public class SimplePhaser extends AndroidViewComponent {
 
 
   private String getMessage(String uuid) {
-    Toast.makeText(webview.getContext(), "Mailbox: " + keyStore.size(), Toast.LENGTH_SHORT).show();
+//    Toast.makeText(webview.getContext(), "Mailbox: " + keyStore.size(), Toast.LENGTH_SHORT).show();
     while (!keyStore.containsKey(uuid)) {
       // empty pend
     }
-    Toast.makeText(webview.getContext(), "GOT WIDTH DATA", Toast.LENGTH_SHORT).show();
+//    Toast.makeText(webview.getContext(), "GOT WIDTH DATA", Toast.LENGTH_SHORT).show();
     return keyStore.remove(uuid);
   }
 
@@ -303,14 +303,14 @@ public class SimplePhaser extends AndroidViewComponent {
 
   @SimpleEvent
   public void EventGameReady() {
-    Toast.makeText(webview.getContext(), "Dispatched event!!", Toast.LENGTH_SHORT).show();
+    generateGame();
     EventDispatcher.dispatchEvent(this, "EventGameReady");
   }
 
   @SimpleEvent
   public void EventSpriteCollide(String aName, String aGroup,
                                  String bName, String bGroup) {
-    Toast.makeText(webview.getContext(), "collision!", Toast.LENGTH_SHORT).show();
+//    Toast.makeText(webview.getContext(), "collision!", Toast.LENGTH_SHORT).show();
     EventDispatcher.dispatchEvent(this, "EventSpriteCollide",
             aName, aGroup, bName, bGroup);
   }
@@ -335,6 +335,14 @@ public class SimplePhaser extends AndroidViewComponent {
   )
   public void CreatePlatform(String group, int x, int y) {
     webview.loadUrl("javascript:api.CreatePlatform(" + dumpStr(group) + "," + x + "," + y + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a simple platform."
+  )
+  public void CreateTilePlatform(String group, int x, int y, int width, int height) {
+    webview.loadUrl("javascript:api.CreateTilePlatform(" + dumpStr(group) + "," + x + "," + y + "," + width + "," + height + ")");
   }
 
 
@@ -379,6 +387,19 @@ public class SimplePhaser extends AndroidViewComponent {
 
 
   @SimpleFunction(
+          description = "Creates a new player sprite."
+  )
+  public void CreatePlayer(String group, String name, int x, int y, int gravity) {
+    webview.loadUrl("javascript:api.CreatePlayer(" +
+            dumpStr(group) + "," +
+            dumpStr(name) + "," +
+            x + "," +
+            y + "," +
+            gravity + "," +
+            ")");
+  }
+
+  @SimpleFunction(
           description = "Deletes a sprite object."
   )
   public void DeleteSprite(String name) {
@@ -416,37 +437,42 @@ public class SimplePhaser extends AndroidViewComponent {
 
 
   @SimpleFunction(
-          description = "Gets the X coordinate of a sprite object."
+          description = "Gets the Y coordinate of a sprite object."
   )
-  public int GetSpriteX2(String name) {
-    String uuid = makeUuid();
-//    int x = Integer.parseInt(getMessage(uuid));
-//    return x;
-    String theString = "javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");";
-    Toast.makeText(webview.getContext(), "Output:" + theString, Toast.LENGTH_SHORT).show();
-    webview.loadUrl(theString);
-    pause(100);
-    pause(100);
-    pause(100);
-    pause(100);
-    pause(100);
-    Toast.makeText(webview.getContext(), "Mailbox!!: " + keyStore.size(), Toast.LENGTH_SHORT).show();
-//    return (int) Integer.parseInt(getMessage(uuid));
-    return 20;
+  public double GetSpriteY(String name) {
+    SpriteState state = getSpriteState(name);
+    if (state == null) {
+      return 0; // invalid
+    }
+    return state.y;
   }
 
 
-//  @SimpleFunction(
-//          description = "Gets the X coordinate of a sprite object."
-//  )
-//  public int GetSpriteX3(String name) {
-//    String uuid = makeUuid();
-//    webview.loadUrl("javascript:api.GetSpriteX(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
-//    pause(400);
-//    getMessage(uuid);
-////    return x;
-//    return 20;
-//  }
+  @SimpleFunction(
+          description = "Gets the X velocity of a sprite object."
+  )
+  public double GetSpriteVelX(String name) {
+    SpriteState state = getSpriteState(name);
+    if (state == null) {
+      return 0; // invalid
+    }
+    return state.velX;
+  }
+
+
+  @SimpleFunction(
+          description = "Gets the Y velocity of a sprite object."
+  )
+  public double GetSpriteVelY(String name) {
+    SpriteState state = getSpriteState(name);
+    if (state == null) {
+      return 0; // invalid
+    }
+    return state.velY;
+  }
+
+
+
 
 
   private void pause(long ms) {
@@ -467,18 +493,6 @@ public class SimplePhaser extends AndroidViewComponent {
 
 
   @SimpleFunction(
-          description = "Gets the Y coordinate of a sprite object."
-  )
-  public int GetSpriteY(String name) {
-    String uuid = makeUuid();
-    webview.loadUrl("javascript:api.GetSpriteY(" + dumpStr(uuid) + "," + dumpStr(name) + ");");
-//    int y = Integer.parseInt(getMessage(uuid));
-//    return y;
-    return 0;
-  }
-
-
-  @SimpleFunction(
           description = "Sets the Y coordinate of a sprite object."
   )
   public void SetSpriteY(String name, int y) {
@@ -486,11 +500,36 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
+  @SimpleFunction(
+          description = "Sets the X velocity of a sprite object."
+  )
+  public void SetSpriteVelX(String name, int velX) {
+    webview.loadUrl("javascript:api.SetSpriteVelX(" + dumpStr(name) + "," + velX + ");");
+  }
+
 
   @SimpleFunction(
-          description = "Generates the game."
+          description = "Sets the Y velocity of a sprite object."
   )
-  public void GenerateGame() {
+  public void SetSpriteVelY(String name, int velY) {
+    webview.loadUrl("javascript:api.SetSpriteVelY(" + dumpStr(name) + "," + velY + ");");
+  }
+
+
+  @SimpleFunction(
+          description = "Sets the state of a player object."
+  )
+  public void SetState(String name, String state) {
+    webview.loadUrl("javascript:api.SetState("
+            + dumpStr(name) + ","
+            + dumpStr(state) + ");");
+  }
+
+
+//  @SimpleFunction(
+//          description = "Generates the game."
+//  )
+  private void generateGame() {
     webview.loadUrl("javascript:api.GenerateGame()");
   }
 
