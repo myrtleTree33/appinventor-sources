@@ -102,6 +102,44 @@ public class SimplePhaser extends AndroidViewComponent {
       } catch (JSONException e) {
       }
     }
+
+
+    @JavascriptInterface
+    public void onTouch(String event, int x, int y) {
+      if (event.equals("tap")) {
+        EventFingerTap(x,y);
+
+      } else if (event.equals("down")) {
+        EventFingerDown(x,y);
+
+      } else if (event.equals("up")) {
+        EventFingerUp(x, y);
+
+      } else if (event.equals("dragged")) {
+        EventFingerDrag(x, y);
+      }
+    }
+
+
+    @JavascriptInterface
+    public void onSwipe(String direction) {
+      if (direction.equals("up")) {
+        EventSwipeUp();
+
+      } else if (direction.equals("down")) {
+        EventSwipeDown();
+
+      } else if (direction.equals("left")) {
+        EventSwipeLeft();
+
+      } else if (direction.equals("right")) {
+        EventSwipeRight();
+
+      } else if (direction.equals("swipe")) {
+        EventSwipe();
+
+      }
+    }
   }
 
 
@@ -316,6 +354,58 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
+  @SimpleEvent
+  public void EventFingerTap(int x, int y) {
+    EventDispatcher.dispatchEvent(this, "EventFingerTap", x, y);
+  }
+
+
+  @SimpleEvent
+  public void EventFingerDown(int x, int y) {
+    EventDispatcher.dispatchEvent(this, "EventFingerDown", x, y);
+  }
+
+
+  @SimpleEvent
+  public void EventFingerUp(int x, int y) {
+    EventDispatcher.dispatchEvent(this, "EventFingerUp", x, y);
+  }
+
+
+  @SimpleEvent
+  public void EventFingerDrag(int x, int y) {
+    EventDispatcher.dispatchEvent(this, "EventFingerDrag", x, y);
+  }
+
+
+  @SimpleEvent
+  public void EventSwipeUp() {
+    EventDispatcher.dispatchEvent(this, "EventSwipeUp");
+  }
+
+
+  @SimpleEvent
+  public void EventSwipeDown() {
+    EventDispatcher.dispatchEvent(this, "EventSwipeDown");
+  }
+
+
+  @SimpleEvent
+  public void EventSwipeLeft() {
+    EventDispatcher.dispatchEvent(this, "EventSwipeLeft");
+  }
+
+
+  @SimpleEvent
+  public void EventSwipeRight() {
+    EventDispatcher.dispatchEvent(this, "EventSwipeRight");
+  }
+
+  @SimpleEvent
+  public void EventSwipe() {
+    EventDispatcher.dispatchEvent(this, "EventSwipe");
+  }
+
   /**********************************************/
   /*************** Instantiators ****************/
   /**
@@ -327,6 +417,17 @@ public class SimplePhaser extends AndroidViewComponent {
   )
   public void CreateSky() {
     webview.loadUrl("javascript:api.CreateSky()");
+  }
+
+
+  @SimpleFunction(
+          description = "Creates a tiled background.  Type= rock|sand"
+  )
+  public void CreateTiledBackground(String type, int width, int height) {
+    webview.loadUrl("javascript:api.CreateTiledBackground("
+            + dumpStr(type) + ","
+            + width + ","
+            + height + ")");
   }
 
 
@@ -405,6 +506,36 @@ public class SimplePhaser extends AndroidViewComponent {
   public void DeleteSprite(String name) {
     webview.loadUrl("javascript:api.DeleteSprite(" +
             dumpStr(name) + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Sets the game world size."
+  )
+  public void SetGameSize(int width, int height) {
+    webview.loadUrl("javascript:api.SetGameSize("
+            + width + ","
+            + height + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Sets the camera position."
+  )
+  public void SetCameraPos(int x, int y) {
+    webview.loadUrl("javascript:api.SetCameraPos("
+            + x + ","
+            + y + ")");
+  }
+
+
+  @SimpleFunction(
+          description = "Set the camera to follow a sprite."
+  )
+  public void SetCameraFollow(int x, int y) {
+    webview.loadUrl("javascript:api.SetCameraFollow("
+            + x + ","
+            + y + ")");
   }
 
 
