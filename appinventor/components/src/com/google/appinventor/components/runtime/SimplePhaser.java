@@ -532,10 +532,9 @@ public class SimplePhaser extends AndroidViewComponent {
   @SimpleFunction(
           description = "Set the camera to follow a sprite."
   )
-  public void SetCameraFollow(int x, int y) {
+  public void SetCameraFollow(String name) {
     webview.loadUrl("javascript:api.SetCameraFollow("
-            + x + ","
-            + y + ")");
+            + name + ")");
   }
 
 
