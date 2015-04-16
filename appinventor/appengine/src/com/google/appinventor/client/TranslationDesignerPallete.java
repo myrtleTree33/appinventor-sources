@@ -310,7 +310,7 @@ public class TranslationDesignerPallete {
       value = MESSAGES.YandexTranslateHelpStringComponentPallette();
 
     } else if (key.equals("SimplePhaser")) {
-      value = MESSAGES.simplePhaserComponentPalette();
+      value = MESSAGES.SimplePhaserComponentPalette();
     }
     return value;
   }
