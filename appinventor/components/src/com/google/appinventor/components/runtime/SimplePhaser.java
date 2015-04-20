@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by joel on 3/12/15.
  */
-@DesignerComponent(version = YaVersion.SIMPLEPHASOR_COMPONENT_VERSION,
+@DesignerComponent(version = YaVersion.SIMPLEPHASER_COMPONENT_VERSION,
         category = ComponentCategory.ANIMATION,
         description = "Creates a Simple Phaser game.")
 @SimpleObject

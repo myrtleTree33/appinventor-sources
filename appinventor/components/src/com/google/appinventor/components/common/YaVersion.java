@@ -870,7 +870,7 @@ public class YaVersion {
   // - ClearCaches method was added
   public static final int WEBVIEWER_COMPONENT_VERSION = 6;
   
-  public static final int SIMPLEPHASOR_COMPONENT_VERSION = 1;
+  public static final int SIMPLEPHASER_COMPONENT_VERSION = 1;
 
 
   // For YANDEX_COMPONENT_VERSION 1:
