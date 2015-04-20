@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by joel on 3/12/15.
  */
 @DesignerComponent(version = YaVersion.SIMPLEPHASOR_COMPONENT_VERSION,
-        category = ComponentCategory.USERINTERFACE,
+        category = ComponentCategory.ANIMATION,
         description = "Creates a Simple Phaser game.")
 @SimpleObject
 @UsesPermissions(permissionNames = "android.permission.INTERNET")
