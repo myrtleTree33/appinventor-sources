@@ -339,13 +339,17 @@ public class SimplePhaser extends AndroidViewComponent {
     return "\'" + str + "\'";
   }
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered when game starts."
+  )
   public void EventGameReady() {
     generateGame();
     EventDispatcher.dispatchEvent(this, "EventGameReady");
   }
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered when sprites collide."
+  )
   public void EventSpriteCollide(String aName, String aGroup,
                                  String bName, String bGroup) {
 //    Toast.makeText(webview.getContext(), "collision!", Toast.LENGTH_SHORT).show();
@@ -354,54 +358,72 @@ public class SimplePhaser extends AndroidViewComponent {
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on finger tap."
+  )
   public void EventFingerTap(int x, int y) {
     EventDispatcher.dispatchEvent(this, "EventFingerTap", x, y);
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on finger down."
+  )
   public void EventFingerDown(int x, int y) {
     EventDispatcher.dispatchEvent(this, "EventFingerDown", x, y);
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on finger up."
+  )
   public void EventFingerUp(int x, int y) {
     EventDispatcher.dispatchEvent(this, "EventFingerUp", x, y);
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on finger drag."
+  )
   public void EventFingerDrag(int x, int y) {
     EventDispatcher.dispatchEvent(this, "EventFingerDrag", x, y);
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on Swipe up."
+  )
   public void EventSwipeUp() {
     EventDispatcher.dispatchEvent(this, "EventSwipeUp");
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on swipe down."
+  )
   public void EventSwipeDown() {
     EventDispatcher.dispatchEvent(this, "EventSwipeDown");
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on swipe left."
+  )
   public void EventSwipeLeft() {
     EventDispatcher.dispatchEvent(this, "EventSwipeLeft");
   }
 
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on swipe right."
+  )
   public void EventSwipeRight() {
     EventDispatcher.dispatchEvent(this, "EventSwipeRight");
   }
 
-  @SimpleEvent
+  @SimpleEvent(
+          description = "Triggered on swipe."
+  )
   public void EventSwipe() {
     EventDispatcher.dispatchEvent(this, "EventSwipe");
   }

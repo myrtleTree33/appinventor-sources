@@ -5355,6 +5355,152 @@ public interface OdeMessages extends Messages {
   @Description("")
   String SimplePhaserGameWidthProperties();
 
+  @DefaultMessage("GameHeight")
+  @Description("")
+  String SimplePhaserGameHeightProperties();
+
+  @DefaultMessage("Width")
+  @Description("")
+  String SimplePhaserWidthProperties();
+
+  @DefaultMessage("Height")
+  @Description("")
+  String SimplePhaserHeightProperties();
+
+  @DefaultMessage("EventGameReady")
+  @Description("")
+  String SimplePhaserGameReadyEvents();
+
+  @DefaultMessage("EventSpriteCollide")
+  @Description("")
+  String SimplePhaserSpriteCollideEvents();
+
+  @DefaultMessage("EventFingerTap")
+  @Description("")
+  String SimplePhaserFingerTapEvents();
+
+  @DefaultMessage("EventFingerDown")
+  @Description("")
+  String SimplePhaserFingerDownEvents();
+
+  @DefaultMessage("EventFingerUp")
+  @Description("")
+  String SimplePhaserFingerUpEvents();
+
+  @DefaultMessage("EventFingerDrag")
+  @Description("")
+  String SimplePhaserFingerDragEvents();
+
+  @DefaultMessage("EventSwipeUp")
+  @Description("")
+  String SimplePhaserSwipeUpEvents();
+
+  @DefaultMessage("EventSwipeDown")
+  @Description("")
+  String SimplePhaserSwipeDownEvents();
+
+  @DefaultMessage("EventSwipeLeft")
+  @Description("")
+  String SimplePhaserSwipeLeftEvents();
+
+  @DefaultMessage("EventSwipeRight")
+  @Description("")
+  String SimplePhaserSwipeRightEvents();
+
+  @DefaultMessage("EventSwipe")
+  @Description("")
+  String SimplePhaserSwipeEvents();
+
+
+  @DefaultMessage("CreateSky")
+  @Description("")
+  String SimplePhaserCreateSkyMethods();
+
+  @DefaultMessage("CreateTiledBackground")
+  @Description("")
+  String SimplePhaserCreateTiledBackgroundMethods();
+
+  @DefaultMessage("CreatePlatform")
+  @Description("")
+  String SimplePhaserCreatePlatformMethods();
+
+  @DefaultMessage("CreateTilePlatform")
+  @Description("")
+  String SimplePhaserCreateTilePlatformMethods();
+
+  @DefaultMessage("CreateRock")
+  @Description("")
+  String SimplePhaserCreateRockMethods();
+
+  @DefaultMessage("CreateTree")
+  @Description("")
+  String SimplePhaserCreateTreeMethods();
+
+  @DefaultMessage("CreateBullet")
+  @Description("")
+  String SimplePhaserCreateBulletMethods();
+
+  @DefaultMessage("CreatePlayer")
+  @Description("")
+  String SimplePhaserCreatePlayerMethods();
+
+  @DefaultMessage("DeleteSprite")
+  @Description("")
+  String SimplePhaserDeleteSpriteMethods();
+
+  @DefaultMessage("SetGameSize")
+  @Description("")
+  String SimplePhaserSetGameSizeMethods();
+
+  @DefaultMessage("SetCameraPos")
+  @Description("")
+  String SimplePhaserSetCameraPosMethods();
+
+  @DefaultMessage("SetCameraFollow")
+  @Description("")
+  String SimplePhaserSetCameraFollowMethods();
+
+  @DefaultMessage("SetPosition")
+  @Description("")
+  String SimplePhaserSetPositionMethods();
+
+  @DefaultMessage("GetSpriteX")
+  @Description("")
+  String SimplePhaserGetSpriteXMethods();
+
+  @DefaultMessage("GetSpriteY")
+  @Description("")
+  String SimplePhaserGetSpriteYMethods();
+
+  @DefaultMessage("GetSpriteVelX")
+  @Description("")
+  String SimplePhaserGetSpriteVelXMethods();
+
+  @DefaultMessage("GetSpriteVelY")
+  @Description("")
+  String SimplePhaserGetSpriteVelYMethods();
+
+  @DefaultMessage("SetSpriteX")
+  @Description("")
+  String SimplePhaserSetSpriteXMethods();
+
+  @DefaultMessage("SetSpriteY")
+  @Description("")
+  String SimplePhaserSetSpriteYMethods();
+
+  @DefaultMessage("SetSpriteVelX")
+  @Description("")
+  String SimplePhaserSetSpriteVelXMethods();
+
+
+  @DefaultMessage("SetSpriteVelY")
+  @Description("")
+  String SimplePhaserSetSpriteVelYMethods();
+
+  @DefaultMessage("SetState")
+  @Description("")
+  String SimplePhaserSetStateMethods();
+
 
   // Missing translations from 4/8/2015 -- Should sort into appropriate place
 
