@@ -528,7 +528,7 @@ public class SimplePhaser extends AndroidViewComponent {
             dumpStr(name) + "," +
             x + "," +
             y + "," +
-            gravity + "," +
+            gravity +
             ")");
   }
 
@@ -566,7 +566,7 @@ public class SimplePhaser extends AndroidViewComponent {
   )
   public void SetCameraFollow(String name) {
     webview.loadUrl("javascript:api.SetCameraFollow("
-            + name + ")");
+            + dumpStr(name) + ")");
   }
 
 
