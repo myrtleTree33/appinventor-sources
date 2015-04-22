@@ -5379,6 +5379,10 @@ public interface OdeMessages extends Messages {
   @Description("")
   String EventFingerTapEvents();
 
+  @DefaultMessage("EventFingerDoubleTap")
+  @Description("")
+  String EventFingerDoubleTapEvents();
+
   @DefaultMessage("EventFingerDown")
   @Description("")
   String EventFingerDownEvents();

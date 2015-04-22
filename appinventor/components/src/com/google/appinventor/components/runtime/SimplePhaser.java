@@ -109,6 +109,9 @@ public class SimplePhaser extends AndroidViewComponent {
       if (event.equals("tap")) {
         EventFingerTap(x,y);
 
+      } else if (event.equals("doubletap")) {
+        EventFingerDoubleTap(x,y);
+
       } else if (event.equals("down")) {
         EventFingerDown(x,y);
 
@@ -282,9 +285,8 @@ public class SimplePhaser extends AndroidViewComponent {
 
 
   public void loadPage() {
-//    String markup = "<HTML>hello world!! Hihi there!!</HTML>";
-//    webview.loadDataWithBaseURL(null, markup, "text/html", "utf-8", null);
-    webview.loadUrl("http://joeltong.org/phaser/");
+//    webview.loadUrl("http://joeltong.org/phaser/"); // development
+    webview.loadUrl("http://ai2-simplephaser.appspot.com/"); // production
   }
 
   @Override
@@ -363,6 +365,14 @@ public class SimplePhaser extends AndroidViewComponent {
   )
   public void EventFingerTap(int x, int y) {
     EventDispatcher.dispatchEvent(this, "EventFingerTap", x, y);
+  }
+
+
+  @SimpleEvent(
+          description = "Triggered on finger double tap."
+  )
+  public void EventFingerDoubleTap(int x, int y) {
+    EventDispatcher.dispatchEvent(this, "EventFingerDoubleTap", x, y);
   }
 
 
