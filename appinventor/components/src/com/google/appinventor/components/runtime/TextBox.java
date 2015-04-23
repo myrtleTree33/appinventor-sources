@@ -163,7 +163,7 @@ public final class TextBox extends TextBoxBase {
       category = PropertyCategory.BEHAVIOR,
       description = "If true, then this text box accepts multiple lines of input, which are " +
                     "entered using the return key.  For single line text boxes there is a Done " +
-                    "key insteadwebview.getContext()turn key, and pressing Done hides the keyboard.  " +
+                    "key instead of a return key, and pressing Done hides the keyboard.  " +
                     "The app should call the HideKeyboard method to hide the keyboard for " +
                     "a mutiline text box.")
   public boolean MultiLine() {

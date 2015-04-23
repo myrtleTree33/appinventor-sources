@@ -5346,7 +5346,7 @@ public interface OdeMessages extends Messages {
   @Description("")
   String FusionTablesStandardErrorMessage();
 
-  // ============== for simple phaser
+  // ============== for SimplePhaser
   @DefaultMessage("SimplePhaser")
   @Description("")
   String SimplePhaserComponentPalette();
@@ -5358,14 +5358,6 @@ public interface OdeMessages extends Messages {
   @DefaultMessage("GameHeight")
   @Description("")
   String GameHeightProperties();
-
-//  @DefaultMessage("Width")
-//  @Description("")
-//  String SimplePhaserWidthProperties();
-//
-//  @DefaultMessage("Height")
-//  @Description("")
-//  String SimplePhaserHeightProperties();
 
   @DefaultMessage("EventGameReady")
   @Description("")

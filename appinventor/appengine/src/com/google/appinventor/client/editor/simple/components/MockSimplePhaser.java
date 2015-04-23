@@ -58,24 +58,4 @@ public class MockSimplePhaser extends MockVisibleComponent {
     }
     return heightHint;
   }
-
-//  // override the width and height hints, so that automatic will in fact be fill-parent
-//  @Override
-//  int getWidthHint() {
-//    int widthHint = super.getPreferredWidth();
-//    if (widthHint == LENGTH_PREFERRED) {
-//      widthHint = LENGTH_FILL_PARENT;
-//    }
-//    return widthHint;
-//  }
-//
-//  @Override
-//  int getHeightHint() {
-//    int heightHint = super.getPreferredHeight();
-//    if (heightHint == LENGTH_PREFERRED) {
-//      heightHint = LENGTH_FILL_PARENT;
-//    }
-//    return heightHint;
-//  }
-
 }

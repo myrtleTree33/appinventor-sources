@@ -11,9 +11,10 @@ import com.google.gwt.user.client.ui.Tree.Resources;
 
 /**
  * Image bundle containing all client images.
- * <p/>
+ *
  * Note: Images extends Tree.Resources rather than ClientBundle so that
  * the Images can be used with the com.google.gwt.user.client.ui.Tree class.
+ *
  */
 public interface Images extends Resources {
 
