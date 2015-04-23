@@ -179,8 +179,8 @@ public class SimplePhaser extends AndroidViewComponent {
 //We had some issues with rendering of maps on certain devices; using caching seems to solve it
     webview.setDrawingCacheEnabled(false);
     webview.setDrawingCacheEnabled(true);
+
 // Support for console APIs -- only available in API level 8+ (here only for debugging).
-//TODO (jos) will this crash in lower level phones?
     webview.setWebChromeClient(new WebChromeClient() {
       public boolean onConsoleMessage(ConsoleMessage cm) {
         Log.d("WEBMAP", cm.message() + " -- From line "
