@@ -29,10 +29,19 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by joel on 3/12/15.
+ *
+ * SimplePhaser is a component that allows user to create Arcade Games easily
+ * in a WebView container.
+ *
+ * The underlying framework builds upon Javascript / Phaser IO and is located
+ * at https://github.com/myrtleTree33/TestBlockly/tree/develop
+ *
+ * Blocks issue and receive Javascript calls, abstracted from the user.
+ *
  */
 @DesignerComponent(version = YaVersion.SIMPLEPHASER_COMPONENT_VERSION,
         category = ComponentCategory.ANIMATION,
-        description = "Creates a Simple Phaser game.")
+        description = "Creates an arcade game.")
 @SimpleObject
 @UsesPermissions(permissionNames = "android.permission.INTERNET")
 public class SimplePhaser extends AndroidViewComponent {

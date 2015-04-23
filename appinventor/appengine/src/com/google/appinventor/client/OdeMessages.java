@@ -5348,153 +5348,153 @@ public interface OdeMessages extends Messages {
 
   // ============== for SimplePhaser
   @DefaultMessage("SimplePhaser")
-  @Description("")
+  @Description("Creates an arcade game.")
   String SimplePhaserComponentPalette();
 
   @DefaultMessage("GameWidth")
-  @Description("")
+  @Description("Retrieves the Game width.  Does not set.")
   String GameWidthProperties();
 
   @DefaultMessage("GameHeight")
-  @Description("")
+  @Description("Retrieves the Game height.  Does not set.")
   String GameHeightProperties();
 
   @DefaultMessage("EventGameReady")
-  @Description("")
+  @Description("Triggered when all resources load.  Code here!")
   String EventGameReadyEvents();
 
   @DefaultMessage("EventSpriteCollide")
-  @Description("")
+  @Description("Triggered when 2 sprites collide.")
   String EventSpriteCollideEvents();
 
   @DefaultMessage("EventFingerTap")
-  @Description("")
+  @Description("Triggered on finger tap")
   String EventFingerTapEvents();
 
   @DefaultMessage("EventFingerDoubleTap")
-  @Description("")
+  @Description("Triggered on finger double-tap")
   String EventFingerDoubleTapEvents();
 
   @DefaultMessage("EventFingerDown")
-  @Description("")
+  @Description("Triggered on finger down")
   String EventFingerDownEvents();
 
   @DefaultMessage("EventFingerUp")
-  @Description("")
+  @Description("Triggered on finger up")
   String EventFingerUpEvents();
 
   @DefaultMessage("EventFingerDrag")
-  @Description("")
+  @Description("Triggered on finger drag")
   String EventFingerDragEvents();
 
   @DefaultMessage("EventSwipeUp")
-  @Description("")
+  @Description("Triggered on swipe up")
   String EventSwipeUpEvents();
 
   @DefaultMessage("EventSwipeDown")
-  @Description("")
+  @Description("Triggered on swipe down")
   String EventSwipeDownEvents();
 
   @DefaultMessage("EventSwipeLeft")
-  @Description("")
+  @Description("Triggered on swipe left")
   String EventSwipeLeftEvents();
 
   @DefaultMessage("EventSwipeRight")
-  @Description("")
+  @Description("Triggered on swipe right")
   String EventSwipeRightEvents();
 
   @DefaultMessage("EventSwipe")
-  @Description("")
+  @Description("Triggered on swipe")
   String EventSwipeEvents();
 
 
   @DefaultMessage("CreateSky")
-  @Description("")
+  @Description("Create a sky background.")
   String CreateSkyMethods();
 
   @DefaultMessage("CreateTiledBackground")
-  @Description("")
+  @Description("Create a tiled background.")
   String CreateTiledBackgroundMethods();
 
   @DefaultMessage("CreatePlatform")
-  @Description("")
+  @Description("Create a fixed platform.")
   String CreatePlatformMethods();
 
   @DefaultMessage("CreateTilePlatform")
-  @Description("")
+  @Description("Create a tiled platform.")
   String CreateTilePlatformMethods();
 
   @DefaultMessage("CreateRock")
-  @Description("")
+  @Description("Create a rock.")
   String CreateRockMethods();
 
   @DefaultMessage("CreateTree")
-  @Description("")
+  @Description("Create a tree.")
   String CreateTreeMethods();
 
   @DefaultMessage("CreateBullet")
-  @Description("")
+  @Description("Create a bullet,")
   String CreateBulletMethods();
 
   @DefaultMessage("CreatePlayer")
-  @Description("")
+  @Description("Create a player sprite. Use SetState() to change animations.")
   String CreatePlayerMethods();
 
   @DefaultMessage("DeleteSprite")
-  @Description("")
+  @Description("Deletes a sprite with a given name.")
   String DeleteSpriteMethods();
 
   @DefaultMessage("SetGameSize")
-  @Description("")
+  @Description("Sets the game size.")
   String SetGameSizeMethods();
 
   @DefaultMessage("SetCameraPos")
-  @Description("")
+  @Description("Sets camera position.")
   String SetCameraPosMethods();
 
   @DefaultMessage("SetCameraFollow")
-  @Description("")
+  @Description("Sets camera to follow an object.")
   String SetCameraFollowMethods();
 
   @DefaultMessage("SetPosition")
-  @Description("")
+  @Description("Sets the location of a sprite.")
   String SetPositionMethods();
 
   @DefaultMessage("GetSpriteX")
-  @Description("")
+  @Description("Gets the Sprite X coordinate.")
   String GetSpriteXMethods();
 
   @DefaultMessage("GetSpriteY")
-  @Description("")
+  @Description("Gets the sprite Y coordinate.")
   String GetSpriteYMethods();
 
   @DefaultMessage("GetSpriteVelX")
-  @Description("")
+  @Description("Gets velocity of sprite X.")
   String GetSpriteVelXMethods();
 
   @DefaultMessage("GetSpriteVelY")
-  @Description("")
+  @Description("Gets velocity of Sprite Y.")
   String GetSpriteVelYMethods();
 
   @DefaultMessage("SetSpriteX")
-  @Description("")
+  @Description("Sets Sprite X coordinate.")
   String SetSpriteXMethods();
 
   @DefaultMessage("SetSpriteY")
-  @Description("")
+  @Description("Sets Sprite Y coordinate.")
   String SetSpriteYMethods();
 
   @DefaultMessage("SetSpriteVelX")
-  @Description("")
+  @Description("Set sprite X velocity.")
   String SetSpriteVelXMethods();
 
 
   @DefaultMessage("SetSpriteVelY")
-  @Description("")
+  @Description("Set sprite Y velocity.")
   String SetSpriteVelYMethods();
 
   @DefaultMessage("SetState")
-  @Description("")
+  @Description("Set the animation of a player sprite.  Can be either moveLeft|moveRight.")
   String SetStateMethods();
 
 
